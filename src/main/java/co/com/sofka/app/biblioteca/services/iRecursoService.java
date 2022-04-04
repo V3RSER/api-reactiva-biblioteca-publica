@@ -29,5 +29,5 @@ public interface iRecursoService {
 
     Flux<RecursoDTO> findAll();
 
-    Mono<String> available(String id);
+    Mono<Double> available(String id);
 }
