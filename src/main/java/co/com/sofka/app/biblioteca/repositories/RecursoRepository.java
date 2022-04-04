@@ -8,9 +8,9 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface RecursoRepository extends ReactiveMongoRepository<Recurso, String> {
 
-    Flux<Recurso> findByTipo(String area);
+    Flux<Recurso> findByTipoIgnoreCase(String area);
 
-    Flux<Recurso> findByArea(String area);
+    Flux<Recurso> findByAreaIgnoreCase(String area);
 
-    Flux<Recurso> findByTipoAndArea(String tipo, String area);
+    Flux<Recurso> findByTipoAndAreaAllIgnoreCase(String tipo, String area);
 }

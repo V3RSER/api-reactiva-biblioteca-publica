@@ -50,8 +50,8 @@ public class RecursoService implements iRecursoService {
         AtomicBoolean prestado = new AtomicBoolean(false);
         return this.repository.findById(id)
                 .map((Recurso recurso) -> {
-                    if (recurso.getDisponibe()) {
-                        recurso.setDisponibe(false);
+                    if (recurso.getDisponible()) {
+                        recurso.setDisponible(false);
                         recurso.setFechaPrestamo(LocalDateTime.now());
                         prestado.set(true);
                         return recurso;
@@ -70,8 +70,8 @@ public class RecursoService implements iRecursoService {
         AtomicBoolean devuelto = new AtomicBoolean(false);
         return this.repository.findById(id)
                 .map((Recurso recurso) -> {
-                    if (!recurso.getDisponibe()) {
-                        recurso.setDisponibe(true);
+                    if (!recurso.getDisponible()) {
+                        recurso.setDisponible(true);
                         devuelto.set(true);
                         return recurso;
                     }
@@ -93,21 +93,21 @@ public class RecursoService implements iRecursoService {
 
     @Override
     public Flux<RecursoDTO> findByTipo(String tipo) {
-        return this.repository.findByTipo(tipo)
+        return this.repository.findByTipoIgnoreCase(tipo.toLowerCase())
                 .map(AppUtils::recursoModelToDto)
                 .switchIfEmpty(Flux.empty());
     }
 
     @Override
     public Flux<RecursoDTO> findByArea(String area) {
-        return this.repository.findByArea(area)
+        return this.repository.findByAreaIgnoreCase(area.toLowerCase())
                 .map(AppUtils::recursoModelToDto)
                 .switchIfEmpty(Flux.empty());
     }
 
     @Override
     public Flux<RecursoDTO> findByTipoAndArea(String tipo, String area) {
-        return this.repository.findByTipoAndArea(tipo, area)
+        return this.repository.findByTipoAndAreaAllIgnoreCase(tipo.toLowerCase(), area.toLowerCase())
                 .map(AppUtils::recursoModelToDto)
                 .switchIfEmpty(Flux.empty());
     }
@@ -122,7 +122,7 @@ public class RecursoService implements iRecursoService {
     @Override
     public Mono<String> available(String id) {
         return this.repository.findById(id)
-                .map(recurso -> recurso.getDisponibe() ?
+                .map(recurso -> recurso.getDisponible() ?
                         "El recurso se encuentra disponible" :
                         ("El recurso no se encuentra disponible. Fecha del último préstamo: " +
                                 DateTimeFormatter

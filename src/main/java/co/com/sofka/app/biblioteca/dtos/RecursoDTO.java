@@ -14,6 +14,6 @@ public class RecursoDTO {
     private String nombre;
     private String tipo;
     private String area;
-    private Boolean disponibe;
+    private Boolean disponible;
     private LocalDateTime fechaPrestamo;
 }
