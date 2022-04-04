@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface iRecursoService {
     // POST
-    Mono<RecursoDTO> add(Mono<RecursoDTO> clienteDTO);
+    Mono<RecursoDTO> add(Mono<RecursoDTO> recursoDTO);
 
     // DELETE
     Mono<RecursoDTO> delete(String id);
@@ -25,9 +25,9 @@ public interface iRecursoService {
 
     Flux<RecursoDTO> findByArea(String area);
 
-    Flux<RecursoDTO> findByTipoAndArea(String tipo);
+    Flux<RecursoDTO> findByTipoAndArea(String tipo, String area);
 
     Flux<RecursoDTO> findAll();
 
-    Mono<Double> available(String id);
+    Mono<String> available(String id);
 }

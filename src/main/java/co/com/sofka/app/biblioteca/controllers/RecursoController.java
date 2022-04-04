@@ -73,7 +73,7 @@ public class RecursoController {
     @GetMapping("/recurso/tipo/{tipo}/area/{area}")
     public Flux<RecursoDTO> findByTipoAndArea(@PathVariable("tipo") String tipo,
                                               @PathVariable("area") String area) {
-        return this.service.findByTipoAndArea(tipo);
+        return this.service.findByTipoAndArea(tipo, area);
     }
 
     @GetMapping("/recursos")
@@ -82,7 +82,7 @@ public class RecursoController {
     }
 
     @GetMapping("/recurso/{id}/disponible")
-    public Mono<Double> available(@PathVariable("id") String id) {
+    public Mono<String> available(@PathVariable("id") String id) {
         return this.service.available(id);
     }
 }
